@@ -3,6 +3,6 @@ from .import views
 
 
 urlpatterns = [
-    #첫화면 login 페이지가 보이도록 설정
+    #메인 페이지
     path('main/',views.main,name='main'),
 ]

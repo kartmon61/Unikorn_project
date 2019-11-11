@@ -2,22 +2,20 @@
 <html>
     <head>
         <script>
-            function login(){
-                location.replace('main');
-            }
             function create(){
-                location.replace('create');
+                location.replace('/signup');
             }
         </script>
         
     </head>
     <body>
-        <form>
+        <form method="POST" action="{% url 'login' %}">
+            {% csrf_token %}
             <img src="" width="400" height="400" value="Unikorn Logo"><br>
-            <input type="text" value="아이디"><br>
-            <input type="text" value="패스워드"><br>
-            <input type="button" value="로그인" onclick="login()">
-            <input type="button" value="회원가입" onclick="create()">
+            Username:<br><input type="username" name="username"><br>
+            Password:<br><input type="password" name="password"><br>
+            <input type="submit" value="sign in" >
+            <input type="button" value="sign up" onclick="create()">
         </form>
     </body>
 </html>

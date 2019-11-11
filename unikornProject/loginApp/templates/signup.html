@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script>
+            function back(){
+                location.replace('../');
+            }
+        </script>
+    </head>
+    <body>
+        <h2>회원가입 페이지입니다.</h2>
+        <form method="POST" action="{%url 'signup'%}">
+            {% csrf_token %}
+            UserName<br><input name='username' type="text"><br>
+            Password:<br><input name='password1' type="password"><br>
+            Confirm Password<br><input name='password2' type="password"><br>
+            Email<br><input name='email' type="text"><input type="button" value="verify"><br>
+            Department<br><input name='department' type="text"><<br>
+            <input type="submit" value="sign up">
+            <input type="button" value="cancel" onclick="back()">
+        </form>
+    </body>
+</html>
