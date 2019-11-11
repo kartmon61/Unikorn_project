@@ -1,0 +1,54 @@
+여기는 리스트보드입니다.
+{% block layoutblock %}
+
+
+<section id="listBoard"> 
+  {% if user.is_authenticated %} 
+  <a href="/listBoard/new" class="btn purple">WRITE</a>
+  {%endif%} 
+  <table> 
+      <tr>
+        <td>no</td>
+        <td></td>
+        <td>writer</td>
+        <td>hit</td>
+        <td>date</td>
+      </tr>
+        {%if page_posts %}
+          {% for post in page_posts %}
+            
+              <td>{{post.id}}</td>
+              <td>
+                  {{post.title}}
+                  {% if post.postingcomment_set.count != 0 %}
+                  <i class="listBoard_cnt">{{post.postingcomment_set.count}}</i>
+                  {%endif%}
+                  <a href="/listBoard/show/{{post.id}}">in</a>
+              </td>
+              <td>{{post.author}}</td>
+              <td>{{post.post_hit}}</td>
+              <td>{{post.created_at | date:"f  d Y" }}</td> 
+            </tr>
+          {% endfor %}
+        {%else%}
+            <td>There isn't any post yet</td>
+          {%endif%}
+    </table> 
+    <ul class="paging">
+        {%if page_posts.has_previous%}
+          <li><a href="?page={{page_posts.previous_page_number}}">&lt;</a></li>
+        {%endif%}
+        {%for i in page_posts.paginator.page_range%}
+          {% if i == page_posts.number%}
+          <li><a href="?page={{page_posts.number}}" class="active">{{i}}</a></li>
+          {%else%}
+          <li><a href="?page={{page_posts.number}}">{{i}}</a></li>
+          {%endif%}
+       {%endfor%}
+
+       {%if page_posts.has_next%}
+       <li><a href="?page={{page_posts.next_page_number}}">&gt;</a></li> 
+       {%endif%} 
+    </ul> 
+</section>
+{% endblock %}

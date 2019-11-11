@@ -1,0 +1,5 @@
+{
+    "python.pythonPath": "unikorn/bin/python3",
+    "python.linting.enabled": false,
+    "python.linting.pylintEnabled": true
+}

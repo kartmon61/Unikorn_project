@@ -37,7 +37,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'unikornApp.apps.UnikornappConfig',
+    'lectureEvalApp.apps.LectureevalappConfig',
+    'listBoardApp.apps.ListboardappConfig',
+    'usedMarketApp.apps.UsedmarketappConfig',
+    'loginApp.apps.LoginappConfig',
+    'ckeditor',
+    'ckeditor_uploader',
 ]
+
+CKEDITOR_UPLOAD_PATH = "uploads/"
+CKEDITOR_IMAGE_BACKEND = "pillow"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -118,3 +128,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_DIR = [os.path.join(BASE_DIR, 'unikornApp', 'static')]
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+MEDIA_URL = os.path.join(BASE_DIR, 'media/')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')

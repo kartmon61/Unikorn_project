@@ -14,8 +14,25 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from django.conf.urls import include
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    #로그인 앱 url 연결
+    path('',include('loginApp.urls')),
+    #메인 앱 url 연결
+    path('',include('unikornApp.urls')),
+    #강의평가 앱 url 연결
+    path('',include('lectureEvalApp.urls')),
+    #리스트 형식 게시판 앱 url 연결
+    path('listBoard/',include('listBoardApp.urls')),
+    #중고장터 게시판 앱 url 연결
+    path('',include('usedMarketApp.urls')),
+    #ckeditor 라이브러리 추가
+    path('ckeditor/', include('ckeditor_uploader.urls')),
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

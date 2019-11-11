@@ -1,0 +1,66 @@
+
+{{posts.update_counter}}
+
+<section id="listBoard_detail">
+        
+    <ul>
+        <li>
+            <a href="/listBoard/show/{{posts.id}}">{{ posts.title }}</a>
+            {% if posts.postingcomment_set.count != 0 %}
+            <i class="list_cnt">{{posts.postingcomment_set.count}}</i>
+            {%endif%}
+        </li>
+        <li>
+            <div>
+                <a href="/listBoard/edit/{{posts.id}}" class="btn purple">EDIT</a>
+                <a href="/listBoard/delete/{{posts.id}}" class="btn delete purple">DELETE</a>
+            </div>
+        </li>
+    </ul>
+    <ul>
+        <li class="date">{{ posts.author }}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</li>
+        <li class="date">{{posts.created_at | date:"f d Y" }}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</li>
+        <li class="date">views {{ posts.post_hit }}</li> 
+    </ul>
+    <p>{{ posts.content | safe }}</p> 
+
+    
+    <form action="/listBoard/commentcreate/{{posts.id}}" method="POST">
+        {% csrf_token %} 
+        <textarea name="comment_content" 
+                  id="comment_content" 
+                  cols="30" rows="5" 
+                  placeholder="comment"
+                  class="input_"></textarea>
+        <input type="submit" class="btn input_" value="CONFIRM">
+        <input type="hidden" value="{{user.username}}" name="comm_nm">
+    </form> 
+    <!-- {% if comment.author != user.username  %} 
+    <script>
+            $("li>div").hide();
+    </script>
+    {%endif%} -->
+    {% if not user.is_authenticated %}    
+    <script>
+        $("textarea").attr("placeholder","Only members can write comment");
+        $("input[type='submit']").addClass("d");
+        $("#listBoard_detail .input_").prop("disabled",true);   
+        $("li>div").hide();
+    </script>
+    {%endif%}
+
+    {% for comment in comment %}
+    <div class="list"> 
+        <div>
+            <p class="date"><strong>{{comment.author}}</strong></p> 
+            <p class="date">{{comment.created_at}}</p> 
+        </div>
+        <p>{{comment.content}}</p>
+        <!--댓글 작성자랑 아이디 같을 때만 삭제 버튼 보이게 함-->
+        {% if comment.author == user.username  %}
+        <a href="/listBoard/commentdelete/{{posts.id}}/{{comment.id}}" class="delete">delete</a>
+        {%endif%}
+    </div>
+    {% endfor %}
+
+  </section>
